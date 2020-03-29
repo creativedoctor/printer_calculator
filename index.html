@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Is a (new) two-sided printer worth it?</title>
+	    <link rel="shortcut icon" type="image/png" href="assets/calculator_icon.png" />
+	    <link rel="stylesheet" type="text/css" href="assets/style.css">
+	    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+	</head>
+	<body>
+	    <div class="calculator_main">
+	        <h2>Is a (new) two-sided printer worth it?</h2>
+	        <hr class="spacer1">
+	        <form name="calculator">
+
+	            Printer cost
+	            <br>
+	            <input type="text" name="printercost" placeholder="amount" class="xd">
+	            <br>
+	            <br>
+
+	            % of single-paged documents
+	            <br>
+	            <input type="text" name="pagepercent" placeholder="e.g. 30" class="xd">
+	            <br>
+	            <br>
+
+	            Price of 500 sheets of paper
+	            <br>
+	            <input type="text" name="sheetprice" placeholder="amount" class="xd">
+	            <br>
+	            <br>
+
+	            Paper weight (g/m2)
+	            <br>
+	            <input type="text" name="paperweight" placeholder="e.g. 75" class="xd">
+	            <br>
+	            <br>
+
+	            Wattage difference between printers
+	            <br>
+	            <input type="text" name="wattagedifference" placeholder="new - old" class="xd">
+	            <br>
+	            <br>
+
+	            kWh price
+	            <br>
+	            <input type="text" name="elecprice" placeholder="amount" class="xd">
+	            <br>
+	            <br>
+
+	            <input type="button" value="Calculate" class="calculate_button" onClick="calculate()">
+	            <br>
+	            <br>
+
+	            <hr class="spacer2">
+
+	            Minimum amount of pages to be printer to justify purchase
+	            <br>
+	            <br>
+	            <input type="text" name="totalAmountPages" class="result" placeholder="0" readonly>
+
+	        </form>
+
+	        <hr class="spacer3">
+	        <div class="info">
+	            <p>Let's protect the environment</b>!</p>
+	        </div>
+
+	    </div>
+	    <div class="background-overlay"></div>
+
+	    <script>
+	        function calculate() {
+	            // List of every entry we're gonna receive
+	            var printercost = Number(document.calculator.printercost.value);
+	            var pagepercent = Number(document.calculator.pagepercent.value);
+	            var elecprice = Number(document.calculator.elecprice.value);
+	            var sheetprice = Number(document.calculator.sheetprice.value);
+	            var paperweight = Number(document.calculator.paperweight.value);
+	            var wattagedifference = Number(document.calculator.wattagedifference.value);
+
+	            // Now we're gonna calculate everything... The most important part behind the mask :P
+	            threepagepercent = (1 - (pagepercent/100));
+	            onepageprice = sheetprice/500;
+	            addedelectricityperday = wattagedifference * 8;
+	            wattagedifferencekwh = wattagedifference * 7 / 1000;
+	            dailyelecprice = 0.1569 * addedelectricityperday;
+
+	            // And add everything to get a final result
+	            totalAmountPages = printercost / (onepageprice * threepagepercent);
+
+	            // And let's tell the form what the total amount is
+	            document.calculator.totalAmountPages.value = Math.round(totalAmountPages);
+		        }
+	    </script>
+	</body>
+	<footer>Credits to <a href="https://github.com/creativedoctor">@creativedoctor</a> (inspired by <a href='https://github.com/4dams/essence-calculator'>@4dams</a>)</footer>
+</html>
